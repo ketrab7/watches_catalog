@@ -312,6 +312,6 @@ class ProductController extends Controller
         //usuwam produkt z bazy
         WatchProduct::where('id', $product[0]['id'])->delete();
 
-        return redirect()->back()->with('toast', 'Usunięto produkt i zdjęcia z bazy danych.');
+        return redirect('/')->with('toast', 'Usunięto produkt i zdjęcia z bazy danych.');
     }
 }
