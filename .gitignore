@@ -1,6 +1,8 @@
 /node_modules
 /public/hot
 /public/storage
+/public/photo/WatchModel
+/public/photo/WatchProduct
 /storage/*.key
 /vendor
 .env

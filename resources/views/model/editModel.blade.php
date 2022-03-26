@@ -2,7 +2,7 @@
 
 @section('sidebar')
 <div class="list-group">
-    <a href="/" class="list-group-item list-group-item-action text-dark rounded" style="background-color: #ffffff; border: 1px solid white;">
+    <a href="/" class="list-group-item list-group-item-action rounded navbar-myButtonColor">
         Powrót
     </a>
 </div>
@@ -47,13 +47,14 @@
         </div>
 
         <div class="custom-file mt-2">
-            <label class="custom-file-label mb-1" for="image">Wybierz nowy obraz jeśli chcesz zamienić go, dla tego modelu:</label></br>
+            <label class="custom-file-label mb-1" for="image">Wybierz nowy obraz jeśli chcesz zamienić go, dla tego modelu:</label>
+            </br>
             <input type="file" class="custom-file-input" name="image" multiple>
             <!-- podpowiedź -->
             <div class="form-text">W przypadku gdy nie zostanie wybrany nowy obraz, stary pozostanie dalej aktualny.</div>
         </div>
 
-        <button type="submit" class="btn mt-4" style="background-color: #4a3526; color:white; border:0px; border-radius: 5px; float:right">
+        <button type="submit" class="btn-myButtonColor mt-4">
             Zapisz
         </button>
     </form>

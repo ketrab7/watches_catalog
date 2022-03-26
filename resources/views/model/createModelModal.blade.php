@@ -1,9 +1,9 @@
-<div class="modal fade" id="addModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="background-color: #e3d9c6;">
+<div class="modal fade content-color" id="addModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Dodaj nowy model:</h5>
-                <button type="button" style="background-color: Transparent; border: 0px; font-size:22px;" data-dismiss="modal" aria-label="Close">
+                <button class="transparent-color fontSize-22" type="button" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -36,7 +36,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="submit" form="create-model" class="btn" style="background-color: #4a3526; color:white;  border:0px;">
+                <button type="submit" form="create-model" class="btn-myButtonColor">
                     <img src="{{ asset(('thumbnail/add.png')) }}" width=20 height=20 alt="add">
                     Dodaj
                 </button>

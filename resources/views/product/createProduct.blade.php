@@ -2,7 +2,7 @@
 
 @section('sidebar')
 <div class="list-group">
-    <a href="/{{ $model_id }}/products-list" class="list-group-item list-group-item-action text-dark rounded" style="background-color: #ffffff; border: 1px solid white;">
+    <a href="/{{ $model_id }}/products-list" class="list-group-item list-group-item-action navbar-myButtonColor">
         Powrót
     </a>
 </div>
@@ -68,7 +68,7 @@
             <div class="form-text">Aby dodać kilka zdjęć naraz, należy wybrać zdjęcia z wciśniętym klawiszem CTRL.</div>
         </div>
 
-        <button type="submit" class="btn mt-4 rounded" style="background-color: #4a3526; color:white; border:0px; float:right">
+        <button type="submit" class="btn-myButtonColor mt-4">
             <img src="{{ asset(('thumbnail/add.png')) }}" width=20 height=20 alt="add">    
             Dodaj
         </button>

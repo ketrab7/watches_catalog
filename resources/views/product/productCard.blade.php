@@ -3,7 +3,7 @@
 @section('sidebar')
 <div class="list-group">
     <!-- edytowanie produktu -->
-    <a href="/{{ $model_id }}/edit-product/{{ $product->id }}" class="list-group-item list-group-item-action text-dark rounded" style="background-color: #ffffff; border: 1px solid white;">
+    <a href="/{{ $model_id }}/edit-product/{{ $product->id }}" class="list-group-item list-group-item-action rounded navbar-myButtonColor">
         <img src="{{ asset(('thumbnail/edit.png')) }}" width=20 height=20 alt="search">
         Edytuj produkt
     </a>
@@ -17,14 +17,14 @@
         
         <input type="hidden" name="product_id" value="{{ $product->id }}">
     
-        <button type="submit" class="list-group-item list-group-item-action text-dark rounded" style="background-color: #ffffff; border: 1px solid white;">
+        <button type="submit" class="list-group-item list-group-item-action rounded navbar-myButtonColor">
             <img src="{{ asset(('thumbnail/delete.png')) }}" width=20 height=20 alt="delete">
             Usuń
         </button>
     </form>
 
     <hr/>
-    <a href="/{{ $model_id }}/products-list" class="list-group-item list-group-item-action text-dark rounded" style="background-color: #ffffff; border: 1px solid white;">
+    <a href="/{{ $model_id }}/products-list" class="list-group-item list-group-item-action rounded navbar-myButtonColor">
         Powrót do listy produktów
     </a>
 </div>
@@ -70,11 +70,11 @@
         <div class="col-md-6 p-2 pt-4">
             <div class="p-3">
                 @if($product->nominal_name)
-                    <h4><b>{{ $product->nominal_name }}</b></h4>
+                    <h3><b>{{ $product->nominal_name }}</b></h3>
                 @endif
 
                 @if($product->mechanism)
-                <div class="d-flex justify-content-between mt-4">
+                <div class="d-flex justify-content-between mt-4 fontSize-18">
                     <span>Mechanizm:</span>
                     <span>{{ $product->mechanism }}</span>
                 </div>
@@ -82,7 +82,7 @@
                 @endif
 
                 @if($product->years_of_production)
-                <div class="d-flex justify-content-between mt-2">
+                <div class="d-flex justify-content-between mt-2 fontSize-18">
                     <span>Lata produkcji:</span>
                     <span>{{ $product->years_of_production }}</span>
                 </div>
@@ -90,7 +90,7 @@
                 @endif
 
                 @if($product->watch_case_width)
-                <div class="d-flex justify-content-between mt-2">
+                <div class="d-flex justify-content-between mt-2 fontSize-18">
                     <span>Szerokość koperty:</span>
                     <span>{{ $product->watch_case_width }}</span>
                 </div>
@@ -98,7 +98,7 @@
                 @endif
 
                 @if($product->width_of_the_watchs_ear)
-                <div class="d-flex justify-content-between mt-2">
+                <div class="d-flex justify-content-between mt-2 fontSize-16">
                     <span>Szerokość uszu:</span>
                     <span>{{ $product->width_of_the_watchs_ear }}</span>
                 </div>
@@ -106,7 +106,7 @@
                 @endif
 
                 @if($product->ear_ear_dimension)
-                <div class="d-flex justify-content-between mt-2">
+                <div class="d-flex justify-content-between mt-2 fontSize-16">
                     <span>Wymiar ucho-ucho:</span>
                     <span>{{ $product->ear_ear_dimension }}</span>
                 </div>
@@ -114,7 +114,7 @@
                 @endif
 
                 @if($product->glass)
-                <div class="d-flex justify-content-between mt-2">
+                <div class="d-flex justify-content-between mt-2 fontSize-16">
                     <span>Szkło:</span>
                     <span>{{ $product->glass }}</span>
                 </div>

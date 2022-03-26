@@ -132,26 +132,74 @@ body {
 .shadow {
     box-shadow: 10px 10px 14px 0 rgba(0, 0, 0, 1), 10px 10px 24px 0 rgba(0, 0, 0, 0.7);
 }
-/* wykorzystywany do przycisków w navbarze lewym - nie działa*/
-.navbarButton {
-	box-shadow: 0px 1px 0px 0px #1c1b18;
-	background-color: transparent;
-	border-radius: 5px;
-	border: 1px solid #333029;
-	display: inline-block;
-	cursor: pointer;
-	color: #ffffff;
-	font-family: Arial;
-	font-size: 14px;
-	font-weight: bold;
-	padding: 10px 20px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #ffffff;
+/* własny przycisk-brązowy */
+.btn-myButtonColor {
+    background-color: #4a3526; 
+    color:white;  
+    border:0px;
+    border-radius:5px;
+    display:inline-block;
+    cursor:pointer;
+    font-size:14px;
+    padding:5px 10px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #2f6627;
 }
-.navbarButton:hover {
-	background-color:transparent;
+/* kolor kremowy strony */
+.content-color {
+    background-color: #e3d9c6;
 }
-.navbarButton:active {
-	position:relative;
-	top:1px;
+/* kolor brązowy strony -wykorzystywany w navbarze pionowym*/
+.brown-color {
+    background-color: #4a3526;
+}
+/* kolor żółty strony -wykorzystywany w navbarze poziomym*/
+.yellow-color {
+    background-color: #e49e00;
+}
+/* przeźroczyste tło przycisku*/
+.transparent-color {
+    background-color: Transparent; 
+    border: 0px;
+}
+/* wielkość przycisku */
+.fontSize-22 {
+    font-size:22px;
+}
+/* dane na karcie produktowej */
+.fontSize-18 {
+    font-size:18px;
+}
+.fontSize-16 {
+    font-size:16px;
+}
+/* przyciski w navbarze lewym */
+.navbar-myButtonColor {
+    background-color: #ffffff; 
+    color:rgba(0, 0, 0, 0.7);
+    border: 1px solid white;
+}
+/* tytuł kart w modelu i produkcie */
+.myCard-title {
+    font-weight: bold; 
+    font-size: 24px; 
+    color:#262626; 
+    font-family:Roboto Slab; 
+    text-align:center;
+}
+/* wysunięte zdjęcie ponad kartę */
+.myCard-image {
+    text-align:center; 
+    margin-top:-15px; 
+    margin-bottom:2px;
+}
+/* kolor karty */
+.myCard-color {
+    background-color: #ddaf27;
+}
+/* pozycja toast */
+.toast-position {
+    position: absolute; 
+    bottom: 10px; 
+    right: 10px;
 }

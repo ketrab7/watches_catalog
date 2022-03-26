@@ -12,18 +12,14 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
         <script src = "https://code.jquery.com/jquery-3.4.1.min.js" integration = " sha256 -CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin = "anonimowy"></script>
 
-        <!-- jQuery CDN - Slim version (=without AJAX)
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-         -->
         <!-- jQuery Custom Scroller CDN -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
+        <!-- Styles -->
+        <link href="{{ asset('/css/layout.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
-        <!-- Styles -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/layout.css') }}" rel="stylesheet">
         
     </head>
     <body>
@@ -31,7 +27,7 @@
             <div class="wrapper">
 
                 <!-- Navbar lewy -->
-                <nav class="navbar-dark text-white p-2" style="background-color: #4a3526;" id="sidebar">
+                <nav class="navbar-dark text-white p-2 brown-color" id="sidebar">
                     <div class="sidebar-header pt-2">
                             <h3>Katalog zegarków</h3>                        
                     </div>
@@ -54,13 +50,13 @@
                 
 
                 <!-- Content -->
-                <div class="container-fluid p-0" style="background-color: #e3d9c6;" id="content">
+                <div class="container-fluid p-0 content-color" id="content">
                     <!-- Navbar poziomy -->
-                    <nav class="navbar" style="background-color: #e49e00;">
+                    <nav class="navbar yellow-color">
                         
                         <!-- przycisk chowający navbar lewy -->
                         <div class="p-1">
-                            <button type="button" id="sidebarCollapse" style="background-color: Transparent; border: 0px;">
+                            <button class="transparent-color" type="button" id="sidebarCollapse">
                                 <span></span>
                                 <span></span>
                                 <span></span>

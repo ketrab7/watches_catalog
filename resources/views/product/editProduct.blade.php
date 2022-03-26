@@ -2,7 +2,7 @@
 
 @section('sidebar')
 <div class="list-group">
-    <a href="/{{ $model_id }}/products-list" class="list-group-item list-group-item-action text-dark rounded" style="background-color: #ffffff; border: 1px solid white;">
+    <a href="/{{ $model_id }}/products-list" class="list-group-item list-group-item-action rounded navbar-myButtonColor">
         Powrót
     </a>
 </div>
@@ -90,7 +90,7 @@
             </div>
 
             <hr/>
-            <button type="submit" class="btn mt-1" style="background-color: #4a3526; color:white; border:0px; border-radius: 5px; width:150px;">
+            <button type="submit" class="btn-myButtonColor mt-1">
                 <img src="{{ asset(('thumbnail/edit.png')) }}" width=20 height=20 alt="edit">    
                 edytuj
             </button>
@@ -122,7 +122,7 @@
                 </div>
                 
                 <hr/>
-                <button type="submit" class="btn mt-1" style="background-color: #4a3526; color:white; border:0px; border-radius: 5px; width:150px;">
+                <button type="submit" class="btn-myButtonColor mt-1">
                     <img src="{{ asset(('thumbnail/delete.png')) }}" width=20 height=20 alt="delete">    
                     Usuń zdjęcia
                 </button>
