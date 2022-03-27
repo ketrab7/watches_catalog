@@ -56,6 +56,22 @@
             </div>
         </div>
 
+        <div class="row mt-1">
+            <div class="form-group col-md-6">
+                <label for="number_of_stones">Liczba kamieni:</label>
+                <input type="text" class="form-control" name="number_of_stones">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="gender">Rodzaj zegarka:</label>
+                <select class="form-control" name="gender">
+                    <option value="men">męski</option>
+                    <option value="women">damski</option>
+                    <option value="unisex">dla obu płci</option>
+                </select>
+            </div>
+        </div>
+
         <div class="form-group mt-1">
             <label for="detailed_desc">Opis szczegółowy:</label>
             <textarea class="form-control" name="detailed_desc" rows="6"></textarea>

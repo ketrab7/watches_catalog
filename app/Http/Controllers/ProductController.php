@@ -150,6 +150,8 @@ class ProductController extends Controller
         $WatchProduct->width_of_the_watchs_ear = $request->get('width_of_the_watchs_ear');
         $WatchProduct->ear_ear_dimension = $request->get('ear_ear_dimension');
         $WatchProduct->glass = $request->get('glass');
+        $WatchProduct->number_of_stones = $request->get('number_of_stones');
+        $WatchProduct->gender = $request->get('gender');
         $WatchProduct->detailed_desc = $request->get('detailed_desc');
         //zapisuje dane
         $WatchProduct->save();
@@ -160,11 +162,8 @@ class ProductController extends Controller
                 $filename = time() . '.' . $image->getClientOriginalExtension();
 
                 $picture = Image::make($image);
-                //sprawdzam orientację obrazu i obracam obraz jeśli dane przesłane są odwrotnie
+                //sprawdzam orientację obrazu
                 $picture->orientate();
-                if ($picture->width() > $picture->height()) {
-                    $picture->rotate(90);
-                }
 
                 //zmienam do 1000 szerokości i wysokosci
                 $picture->resize(1000, 1000, function ($const) { 
@@ -224,6 +223,8 @@ class ProductController extends Controller
         $product->width_of_the_watchs_ear = $request->get('width_of_the_watchs_ear');
         $product->ear_ear_dimension = $request->get('ear_ear_dimension');
         $product->glass = $request->get('glass');
+        $product->number_of_stones = $request->get('number_of_stones');
+        $product->gender = $request->get('gender');
         $product->detailed_desc = $request->get('detailed_desc');
 
         $product->save();
@@ -234,11 +235,8 @@ class ProductController extends Controller
                 $filename = time() . '.' . $image->getClientOriginalExtension();
 
                 $picture = Image::make($image);
-                //sprawdzam orientację obrazu i obracam obraz jeśli dane przesłane są odwrotnie
+                //sprawdzam orientację obrazu
                 $picture->orientate();
-                if ($picture->width() > $picture->height()) {
-                    $picture->rotate(270);
-                }
 
                 //zmienam do 1000 szerokości i wysokosci
                 $picture->resize(1000, 1000, function ($const) { 

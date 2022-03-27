@@ -98,7 +98,7 @@
                 @endif
 
                 @if($product->width_of_the_watchs_ear)
-                <div class="d-flex justify-content-between mt-2 fontSize-16">
+                <div class="d-flex justify-content-between mt-2 fontSize-18">
                     <span>Szerokość uszu:</span>
                     <span>{{ $product->width_of_the_watchs_ear }}</span>
                 </div>
@@ -106,7 +106,7 @@
                 @endif
 
                 @if($product->ear_ear_dimension)
-                <div class="d-flex justify-content-between mt-2 fontSize-16">
+                <div class="d-flex justify-content-between mt-2 fontSize-18">
                     <span>Wymiar ucho-ucho:</span>
                     <span>{{ $product->ear_ear_dimension }}</span>
                 </div>
@@ -114,9 +114,34 @@
                 @endif
 
                 @if($product->glass)
-                <div class="d-flex justify-content-between mt-2 fontSize-16">
+                <div class="d-flex justify-content-between mt-2 fontSize-18">
                     <span>Szkło:</span>
                     <span>{{ $product->glass }}</span>
+                </div>
+                <hr />
+                @endif
+
+                @if($product->number_of_stones)
+                <div class="d-flex justify-content-between mt-2 fontSize-18">
+                    <span>Liczba kamieni:</span>
+                    <span>{{ $product->number_of_stones }}</span>
+                </div>
+                <hr />
+                @endif
+
+                @if($product->gender)
+                <div class="d-flex justify-content-between mt-2 fontSize-18">
+                    <span>Rodzaj zegarka:</span>
+                    @switch ($product->gender)
+                            @case ('men')
+                                <span>męski</span>
+                                @break
+                            @case ('women')
+                                <span>damski</span>
+                                @break
+                            @default
+                                <span>dla obu płci</span>
+                        @endswitch
                 </div>
                 <hr />
                 @endif
@@ -127,11 +152,11 @@
     <!-- opisy długi i szczegółowy -->
     <div class="m-2 mt-4">
         @if($product->detailed_desc)
-            <p>{{ $product->detailed_desc }}</p>
+            <p class="fontSize-18">{{ $product->detailed_desc }}</p>
         @endif
 
         @if($longDescModel)
-            <p>{{ $longDescModel }}</p>
+            <p class="fontSize-18">{{ $longDescModel }}</p>
         @endif
     </div>
 </div>

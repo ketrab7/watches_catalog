@@ -23,6 +23,8 @@ class WatchProduct extends Model
         'width_of_the_watchs_ear',
         'ear_ear_dimension',
         'glass',
+        'number_of_stones',
+        'gender',
         'detailed_desc',
     ];
 }
