@@ -45,9 +45,7 @@ class ProductController extends Controller
             ->where('model_id', '=', $model_id)
             ->paginate($paginationValue);
 
-        if (!isset($dataProduct)) {
-            $dataProduct = [];
-        }
+        if (!isset($dataProduct)) $dataProduct = [];
 
         return view('product.productsList', [
             'data' => $dataProduct,
@@ -88,7 +86,7 @@ class ProductController extends Controller
         //wywołuje metodę by sprawdzić istnienie paginacji
         PaginationController::getPagination();
         $paginationValue = session()->get('paginationValue');
-        //zapytanie
+        
         $dataProduct = WatchProduct::select('watch_products.id', 'watch_products.nominal_name', 'product_images.file_name')
             ->leftJoin('product_images', 'watch_products.id', '=', 'product_images.product_id')
             ->where(function($g){
@@ -97,14 +95,12 @@ class ProductController extends Controller
                 )
                 ->orWhere('product_images.file_name', '=', NULL);
             })
-            ->where('nominal_name', 'like', $search)
-            ->orWhere('mechanism', 'like', $search)
-            ->orWhere('glass', 'like', $search)
+            ->where('nominal_name', 'like', '%'.$search.'%')
+            ->orWhere('mechanism', 'like', '%'.$search.'%')
+            ->orWhere('glass', 'like', '%'.$search.'%')
             ->paginate($paginationValue);
 
-        if (!isset($dataProduct)) {
-            $dataProduct = [];
-        }
+        if (!isset($dataProduct)) $dataProduct = [];
 
         return view('product.productsList', [
             'data' => $dataProduct,
@@ -157,29 +153,7 @@ class ProductController extends Controller
         $WatchProduct->save();
 
         if ($request->hasfile('images')) {
-            foreach ($request->file('images') as $image) {
-                //tworzę nazwę pliku
-                $filename = time() . '.' . $image->getClientOriginalExtension();
-
-                $picture = Image::make($image);
-                //sprawdzam orientację obrazu
-                $picture->orientate();
-
-                //zmienam do 1000 szerokości i wysokosci
-                $picture->resize(1000, 1000, function ($const) { 
-                        $const->aspectRatio();//zachowuje proporcje i nie powiększam
-                        $const->upsize();//mniejsze rozmiary nie rozciągam
-                    })
-                    ->resizeCanvas(1000, 1000, 'center', false, array(255, 255, 255, 0))//wypełniam obraz transparentem
-                    ->save( public_path('photo/WatchProduct/' . $filename ) ); //zapisuje plik
-
-                $ProductImage = new ProductImage;
-                //zapisuje id z rekordu dodanego wcześniej
-                $ProductImage->product_id = $WatchProduct->id;
-                $ProductImage->file_name = $filename;
-
-                $ProductImage->save();
-            };
+            $this->addImage($request->file('images'), $WatchProduct->id);
         };
         
         return redirect('/'.$model_id.'/products-list')
@@ -213,9 +187,8 @@ class ProductController extends Controller
      */
     public function updateProduct($model_id, Request $request)
     {
-        //pobieram produkt 
         $product = WatchProduct::find( $request->get('product_id') );
-        //nadpisuję produkt
+        
         $product->nominal_name = $request->get('nominal_name');
         $product->mechanism = $request->get('mechanism');
         $product->years_of_production = $request->get('years_of_production');
@@ -230,29 +203,7 @@ class ProductController extends Controller
         $product->save();
 
         if ($request->hasfile('images')) {
-            foreach ($request->file('images') as $image) {
-                //tworzę nazwę pliku
-                $filename = time() . '.' . $image->getClientOriginalExtension();
-
-                $picture = Image::make($image);
-                //sprawdzam orientację obrazu
-                $picture->orientate();
-
-                //zmienam do 1000 szerokości i wysokosci
-                $picture->resize(1000, 1000, function ($const) { 
-                        $const->aspectRatio();//zachowuje proporcje i nie powiększam
-                        $const->upsize();//mniejsze rozmiary nie rozciągam
-                    })
-                    ->resizeCanvas(1000, 1000, 'center', false, array(255, 255, 255, 0))//wypełniam obraz transparentem
-                    ->save( public_path('photo/WatchProduct/' . $filename ) ); //zapisuje plik
-
-                $ProductImage = new ProductImage;
-                //zapisuje id z rekordu dodanego wcześniej
-                $ProductImage->product_id = $product->id;
-                $ProductImage->file_name = $filename;
-
-                $ProductImage->save();
-            };
+            $this->addImage($request->file('images'), $product->id);
         };
 
         return redirect('/'.$model_id.'/products-list')
@@ -272,12 +223,7 @@ class ProductController extends Controller
             //fundMany pobiera wyszukuje rekordy podane z tablicy
             $ProductImages = ProductImage::findMany($request->get('checkedPhotos'));
             
-            foreach ($ProductImages as $image) {
-                //usuwam zdjęcie
-                unlink('photo/WatchProduct/'.$image->file_name);
-                //usuwam zdjęcie z bazy
-                ProductImage::where('id', $image->id)->delete();
-            }
+            $this->deleteImage($ProductImages);
             
             return redirect('/'.$model_id.'/products-list')
                 ->with('toast', 'Usunięto zdjęcia z bazy danych.');
@@ -300,16 +246,49 @@ class ProductController extends Controller
         $product = WatchProduct::find($request->only('product_id'));
         $ProductImages = ProductImage::where('product_id', $request->only('product_id'))->get();
         
-        //usunięcie zdjęć z bazy danych i katalogu public
-        foreach ($ProductImages as $ProductImage) {
-            //usuwam zdjęcie
-            unlink('photo/WatchProduct/'.$ProductImage['file_name']);
-            //usuwam zdjęcie z bazy
-            ProductImage::where('id', $ProductImage['id'])->delete();
-        }
+        $this->deleteImage($ProductImages);
         //usuwam produkt z bazy
         WatchProduct::where('id', $product[0]['id'])->delete();
 
         return redirect('/')->with('toast', 'Usunięto produkt i zdjęcia z bazy danych.');
+    }
+
+    /**
+     * Dodanie zdjęć do tabeli, skalowanie obrazów.
+     */
+    private function addImage($images, $WatchProductId)
+    {
+        foreach ($images as $image) {
+            
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+
+            $picture = Image::make($image);
+            $picture->orientate();
+
+            $picture->resize(1000, 1000, function ($const) { 
+                    $const->aspectRatio();//zachowuje proporcje i nie powiększam
+                    $const->upsize();//mniejsze rozmiary nie rozciągam
+                })
+                ->resizeCanvas(1000, 1000, 'center', false, array(255, 255, 255, 0))//wypełniam obraz transparentem
+                ->save( public_path('photo/WatchProduct/' . $filename ) );
+
+            $ProductImage = new ProductImage;
+            //zapisuje id z rekordu dodanego wcześniej
+            $ProductImage->product_id = $WatchProductId;
+            $ProductImage->file_name = $filename;
+
+            $ProductImage->save();
+        };
+    }
+
+    /**
+     * Usunięcie zdjęć z bazy danych i katalogu public
+     */
+    private function deleteImage($ProductImages)
+    {
+        foreach ($ProductImages as $ProductImage) {
+            unlink('photo/WatchProduct/'.$ProductImage['file_name']);
+            ProductImage::where('id', $ProductImage['id'])->delete();
+        }
     }
 }

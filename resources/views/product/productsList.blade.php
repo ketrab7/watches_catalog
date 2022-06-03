@@ -9,12 +9,12 @@
         Dodaj nowy produkt
     </a>
     <hr/>
-    <!-- paginacja w przyszłości obsłużyć AJAX-EM -->
+    <!-- TODO: paginacja w przyszłości obsłużyć AJAX-EM -->
     <form action="/update-paginate" method="post">
         <label for="picture" class="m-1">Ustawienia paginacji:</label><br/>
         <input type="text" name="pagination" class="form-control" value="{{ $paginationValue }}">
         <button class="list-group-item list-group-item-action mt-2 rounded navbar-myButtonColor" type="submit">
-            <img class="pb-1" src="{{ asset(('thumbnail/edit.png')) }}" width=20 height=20 alt="search">
+            <img class="pb-1" src="{{ asset(('thumbnail/edit.png')) }}" width=20 height=20 alt="edit">
             Zmień
         </button>
     </form>

@@ -54,9 +54,13 @@ body {
 #footer {
     position: fixed;
     bottom: 0;
-    height: 80px;
+    height: 130px;
     font-size: 11px;
     width: 250px;
+}
+#help {
+    font-size: 15px;
+    width: 235px;
 }
 .search-input {
     padding: 10px;
