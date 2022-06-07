@@ -117,20 +117,20 @@ class ModelController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function deleteModel(Request $request)
+    public function deleteModel(Request $request, $id)
     {
         //sprawdzam czy istnieje relacja z tabelą produkty
-        $product = WatchProduct::where('model_id', '=', $request->only('model_id'))->first();
-        
-        if (!$product) {
-            $model = WatchModel::find($request->only('model_id'));
-        
+        $product = WatchProduct::where('model_id', '=', $id);
+
+        if (!$product->first()) {
+            $model = WatchModel::find($id);
+
             //jeżeli istnieje zdjęcie w bazie danych to je usuwam
-            if($model[0]['file_path']){
-                unlink('photo/WatchModel/'.$model[0]['file_path']);
+            if($model['file_path']){
+                unlink('photo/WatchModel/'.$model['file_path']);
             };
             //usuwam rekord z bazy
-            WatchModel::where('id', $model[0]['id'])->delete();
+            WatchModel::where('id', $model['id'])->delete();
 
             return redirect('/')->with('toast', 'Usunięto model z bazy danych.');
         } elseif ($product->first()) {

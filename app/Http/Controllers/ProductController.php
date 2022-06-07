@@ -240,17 +240,17 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function deleteProduct(Request $request)
+    public function deleteProduct($model_id, $product_id, Request $request)
     {
         //pobranie produktu i zdjęć
-        $product = WatchProduct::find($request->only('product_id'));
-        $ProductImages = ProductImage::where('product_id', $request->only('product_id'))->get();
+        $product = WatchProduct::find($product_id);
+        $ProductImages = ProductImage::where('product_id', $product_id)->get();
         
         $this->deleteImage($ProductImages);
         //usuwam produkt z bazy
-        WatchProduct::where('id', $product[0]['id'])->delete();
+        WatchProduct::where('id', $product['id'])->delete();
 
-        return redirect('/')->with('toast', 'Usunięto produkt i zdjęcia z bazy danych.');
+        return redirect('/'.$model_id.'/products-list')->with('toast', 'Usunięto produkt i zdjęcia z bazy danych.');
     }
 
     /**

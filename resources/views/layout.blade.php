@@ -43,7 +43,7 @@
                     <div id="footer">
 
                         <a id="help" href="/info" target="_blank" class="list-group-item list-group-item-action rounded navbar-myButtonColor">
-                            <img src="{{ asset(('thumbnail/help-watch.png')) }}" width=20 height=20 alt="help">
+                            <img src="{{ asset(('thumbnail/information.png')) }}" width=13 height=13 alt="help">
                             Instrukcja
                         </a>
 
