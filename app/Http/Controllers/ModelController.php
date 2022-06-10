@@ -65,12 +65,12 @@ class ModelController extends Controller
                 $image->rotate(90);
             }
 
-            //zmienam do 200 szerokości i 250 wysokosci
-            $image->resize(200, 250, function ($const) { 
+            //zmienam do 200 szerokości i 200 wysokosci
+            $image->resize(200, 200, function ($const) { 
                     $const->aspectRatio();//zachowuje proporcje i nie powiększam
                     $const->upsize();//mniejsze rozmiary nie rozciągam
                 })
-                ->resizeCanvas(200, 250, 'center', false, array(255, 255, 255, 0))//wypełniam obraz transparentem
+                ->resizeCanvas(200, 200, 'center', false, array(255, 255, 255, 0))//wypełniam obraz transparentem
                 ->save( public_path('photo/WatchModel/' . $filename ) ); //zapisuje plik
 
             $watchModel->file_path = $filename;
