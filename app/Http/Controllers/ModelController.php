@@ -51,33 +51,10 @@ class ModelController extends Controller
         $watchModel->short_desc = $request->get('short_desc');
         $watchModel->long_desc = $request->get('long_desc');
 
-        //czy jest plik w przesłanym formularzu
-        if ($request->hasFile('image')) {
-
-            $image_file = $request->file('image');
-            //tworzę nazwę pliku
-            $filename = time() . '.' . $image_file->getClientOriginalExtension();
-
-            $image = Image::make($image_file);
-            //sprawdzam orientację obrazu i obracam obraz jeśli dane przesłane są odwrotnie
-            $image->orientate();
-            if ($image->width() > $image->height()) {
-                $image->rotate(90);
-            }
-
-            //zmienam do 200 szerokości i 200 wysokosci
-            $image->resize(200, 200, function ($const) { 
-                    $const->aspectRatio();//zachowuje proporcje i nie powiększam
-                    $const->upsize();//mniejsze rozmiary nie rozciągam
-                })
-                ->resizeCanvas(200, 200, 'center', false, array(255, 255, 255, 0))//wypełniam obraz transparentem
-                ->save( public_path('photo/WatchModel/' . $filename ) ); //zapisuje plik
-
-            $watchModel->file_path = $filename;
-        } else {
-            $watchModel->file_path = '';
-        };
-        //zapisuje rekord do bazy.
+        $watchModel->file_path = ($request->hasFile('image')) 
+            ? $this->addImageModel($request->file('image'))
+            : '';
+        
         $watchModel->save();
 
         return redirect('/')->with('toast', 'Poprawnie dodano nowy model do bazy danych.');
@@ -119,33 +96,13 @@ class ModelController extends Controller
         $model->short_desc = $request->get('short_desc');
         $model->long_desc = $request->get('long_desc');
         
-        //czy jest plik w przesłanym formularzu
         if ($request->hasFile('image')) {
 
-            $image_file = $request->file('image');
-            //tworzę nazwę pliku
-            $filename = time() . '.' . $image_file->getClientOriginalExtension();
-
-            $image = Image::make($image_file);
-            //sprawdzam orientację obrazu i obracam obraz jeśli dane przesłane są odwrotnie
-            $image->orientate();
-            if ($image->width() > $image->height()) {
-                $image->rotate(90);
-            }
-            
-            //zmienam do 200 szerokości i 200 wysokosci
-            $image->resize(200, 200, function ($const) { 
-                    $const->aspectRatio();//zachowuje proporcje i nie powiększam
-                    $const->upsize();//mniejsze rozmiary nie rozciągam
-                })
-                ->resizeCanvas(200, 200, 'center', false, array(255, 255, 255, 0))//wypełniam obraz transparentem
-                ->save( public_path('photo/WatchModel/' . $filename ) ); //zapisuje plik
-            
+            $filename = $this->addImageModel($request->file('image'));
             //jeżeli istnieje zdjęcie w bazie usuwam je
             if ($model->file_path) {
                 unlink('photo/WatchModel/'.$model->file_path);
-            };
-            //dodajemy nowe zdjęcie do bazy danych
+            }; 
             $model->file_path = $filename;
         };
 
@@ -160,25 +117,48 @@ class ModelController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function deleteModel(Request $request)
+    public function deleteModel(Request $request, $id)
     {
         //sprawdzam czy istnieje relacja z tabelą produkty
-        $product = WatchProduct::where('model_id', '=', $request->only('model_id'))->first();
-        
-        if (!$product) {
-            $model = WatchModel::find($request->only('model_id'));
-        
+        $product = WatchProduct::where('model_id', '=', $id);
+
+        if (!$product->first()) {
+            $model = WatchModel::find($id);
+
             //jeżeli istnieje zdjęcie w bazie danych to je usuwam
-            if($model[0]['file_path']){
-                unlink('photo/WatchModel/'.$model[0]['file_path']);
+            if($model['file_path']){
+                unlink('photo/WatchModel/'.$model['file_path']);
             };
             //usuwam rekord z bazy
-            WatchModel::where('id', $model[0]['id'])->delete();
+            WatchModel::where('id', $model['id'])->delete();
 
             return redirect('/')->with('toast', 'Usunięto model z bazy danych.');
         } elseif ($product->first()) {
 
             return redirect('/')->with('toast', 'Musisz najpierw usunąć produkty z tego modelu.');
         };
+    }
+
+    /**
+     * Dodanie nowego zdjęcia do modelu
+     */
+    private function addImageModel($image_file)
+    {
+        $filename = time() . '.' . $image_file->getClientOriginalExtension();
+
+        $image = Image::make($image_file);
+        $image->orientate();
+        if ($image->width() > $image->height()) {
+            $image->rotate(90);
+        }
+
+        $image->resize(200, 200, function ($const) { 
+                $const->aspectRatio();//zachowuje proporcje i nie powiększam
+                $const->upsize();//mniejsze rozmiary nie rozciągam
+            })
+            ->resizeCanvas(200, 200, 'center', false, array(255, 255, 255, 0))//wypełniam obraz transparentem
+            ->save( public_path('photo/WatchModel/' . $filename ) );
+
+        return $filename;
     }
 }

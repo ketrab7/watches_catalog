@@ -30,7 +30,9 @@
                 <!-- Navbar lewy -->
                 <nav class="navbar-dark text-white p-2 brown-color" id="sidebar">
                     <div class="sidebar-header pt-2">
-                            <h3>Katalog zegarków</h3>                        
+                        <a class="btn text-white" href="/">
+                            <h3>Katalog zegarków</h3>
+                        </a>                
                     </div>
                     <hr/>
                     
@@ -39,11 +41,19 @@
                         @yield('sidebar')
                     </div>
 
-                    <div id="footer" class="text-center">
+                    <div id="footer">
+
+                        <a id="help" href="/info" target="_blank" class="list-group-item list-group-item-action rounded navbar-myButtonColor">
+                            <img src="{{ asset(('thumbnail/information.png')) }}" width=13 height=13 alt="help">
+                            Instrukcja
+                        </a>
+
                         <hr/>
-                        Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
-                        </br>
-                        &copy; Copyright - 2022
+                        <div class="text-center">
+                            Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
+                            </br>
+                            &copy; Copyright - 2022
+                        </div>
                     </div>
                     
                 </nav>
@@ -65,9 +75,7 @@
                         </div>
 
                         <!-- wyszukiwarka -->
-                        <form class="row" method="POST" action="/search-product">
-
-                            @csrf
+                        <form class="row" method="GET" action="/search-product">
                             <div class="col-8">
                                 <input class="search-input" type="text" name="search" placeholder="Search" aria-label="Search">
                             </div>
@@ -91,7 +99,7 @@
         <!-- Modal z dodawaniem modelu-->
         @include('model.createModelModal')
         
-        <!-- Toast w zewnętrznym blade-->
+        <!-- Toast -->
         @if (session('toast'))
             @include('system.toastSystem')
         @endif

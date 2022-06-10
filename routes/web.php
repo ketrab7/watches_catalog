@@ -26,7 +26,8 @@ Route::controller(ModelController::class)->group(function () {
     //aktualizacja modelu
     Route::post('/update-model', 'updateModel');
     //usuwanie modelu i zdjęcia
-    Route::delete('/delete-model', 'deleteModel');
+    Route::match(['get', 'delete'], '/delete-model/{id}', 'deleteModel')
+        ->whereNumber('id');
 });
 
 Route::controller(ProductController::class)->group(function () {
@@ -38,11 +39,11 @@ Route::controller(ProductController::class)->group(function () {
         ->whereNumber('model_id')
         ->whereNumber('product_id');
     //wyszukiwanie produktu
-    Route::post('/search-product', 'searchProduct');
+    Route::get('/search-product', 'searchProduct');
     //wyświetlanie dodania nowego produktu
     Route::get('/{model_id}/create-product', 'createProduct')
         ->whereNumber('model_id');
-    //dodanie nowego produktu - wykorzystanie dwóch metod, get(id klucza obcego) i post(dane do tabeli)
+    //dodanie nowego produktu
     Route::match(['get', 'post'],'/{model_id}/store-product', 'storeProduct')
         ->whereNumber('model_id');
     //wyświetlenie edycji produktu
@@ -56,7 +57,9 @@ Route::controller(ProductController::class)->group(function () {
     Route::delete('/{model_id}/delete-product-images', 'deleteImages')
         ->whereNumber('model_id');
      //usuwanie produktu i zdjęć
-    Route::delete('/delete-product', 'deleteProduct');
+    Route::match(['get', 'delete'], '/{model_id}/delete-product/{product_id}', 'deleteProduct')
+        ->whereNumber('model_id')
+        ->whereNumber('product_id');
 });
 
 Route::controller(PaginationController::class)->group(function () {
@@ -64,4 +67,8 @@ Route::controller(PaginationController::class)->group(function () {
     Route::get('/destroy-paginate', 'destroyPagination');
     //zmiana paginacji
     Route::post('/update-paginate', 'updatePagination');
+});
+//instrukcja
+Route::get('/info', function () {
+    return view('system.help');
 });

@@ -4,7 +4,7 @@
 <div class="list-group">
     <!-- edytowanie produktu -->
     <a href="/{{ $model_id }}/edit-product/{{ $product->id }}" class="list-group-item list-group-item-action rounded navbar-myButtonColor">
-        <img src="{{ asset(('thumbnail/edit.png')) }}" width=20 height=20 alt="search">
+        <img src="{{ asset(('thumbnail/edit.png')) }}" width=20 height=20 alt="edit">
         Edytuj produkt
     </a>
 
@@ -129,22 +129,20 @@
                 <hr />
                 @endif
 
-                @if($product->gender)
                 <div class="d-flex justify-content-between mt-2 fontSize-18">
                     <span>Rodzaj zegarka:</span>
                     @switch ($product->gender)
-                            @case ('men')
-                                <span>męski</span>
-                                @break
-                            @case ('women')
-                                <span>damski</span>
-                                @break
-                            @default
-                                <span>dla obu płci</span>
-                        @endswitch
+                        @case ('men')
+                            <span>męski</span>
+                            @break
+                        @case ('women')
+                            <span>damski</span>
+                            @break
+                        @default
+                            <span>dla obu płci</span>
+                    @endswitch
                 </div>
                 <hr />
-                @endif
             </div>
         </div>
     </div>
