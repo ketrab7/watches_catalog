@@ -213,7 +213,7 @@
      * @param {HTMLElement} link The link that was clicked
      */
     function menuItemListener( link ) {
-      let modelID = location.href.substring(location.href.indexOf("/", 15));
+      let modelID = location.href.substring(location.href.indexOf("/", 8));
       modelID = modelID.substring(1, modelID.indexOf("/", 1));
       
       location.href = "/" + modelID + "/" + link.getAttribute("data-action") + "/" + taskItemInContext.getAttribute("data-id");

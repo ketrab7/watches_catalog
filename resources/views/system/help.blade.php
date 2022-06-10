@@ -69,7 +69,7 @@
                     a aplikacja przekieruje użytkownika na stronę startową.
                 </div>
                 <div class="mt-1">
-                    Aby zaktualizować model należy na wybranej karcie rozwinąć listę i wybrać opcję <i>Edytuj</i>
+                    Aby zaktualizować model należy na wybranej karcie nacisnąć PPM(Prawym Przyciskiem Myszy) i wybrać opcję <i>Edytuj</i>
                 </div>
                 <img src="{{ asset('help/model-edit-button.png') }}" alt="model-edit-button" width=1300>
                 <div>
@@ -86,12 +86,10 @@
                     W przypadku nie nadpisywania modelu z lewej strony znajduje się przycisk do powrotu na listę modeli.
                 </div>
                 <div>
-                    W liście rozwijanej znajduje się przycisk usunięcia modelu. 
-                    Po kliknięciu w niego wyświetli się alert z potwierdzeniem decyzji. 
-                    W przypadku zaakceptowania model zostanie usunięty nieodwracalnie.
+                    W ContextMenu znajduje się również przycisk usunięcia modelu. 
+                    Zostanie on usunięty nieodwracalnie.
                     Jeżeli pod modelem znajdują się zdjęcia <i>System</i> zwróci komunikat o wcześniejszym usunięciu produktów z bazy.
                 </div>
-                <img src="{{ asset('help/model-delete.png') }}" alt="model-delete" width=1300>
             </div>
 
             <hr/>
@@ -152,10 +150,9 @@
                 </div>
                 <img src="{{ asset('help/product-edit-deleteImage.png') }}" alt="product-edit-deleteImage" width=1300>
                 <div>
-                    W liście rozwijanej znajduje się przycisk usunięcia produktu. 
-                    Możemy również usunąć produkt z karty produktowej. Po kliknięciu wyświetli się alert 
-                    z potwierdzeniem decyzji. W przypadku zaakceptowania produkt zostanie usunięty nieodwracalnie
-                    wraz z wszystkimi zdjęciami.
+                    W ContextMenu znajduje się przycisk usunięcia produktu. 
+                    Możemy również usunąć produkt z karty produktowej. P
+                    rodukt zostanie usunięty nieodwracalnie wraz z wszystkimi zdjęciami.
                 </div>
             </div>
 
